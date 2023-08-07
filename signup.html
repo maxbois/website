@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNUP</title>
+    <link rel="stylesheet" href="/main.css">
+    <!-- <script src="https://kit.fontawesome.com/4149d18f96.js" crossorigin="anonymous"></script> --> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+              <a class="nav-link" href="/admin.html">Admin</a>
+              <a class="nav-link" href="/signin.html">Sign In</a>
+              <a class="nav-link" href="/signup.html">Sign Up</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Sign Up</h1>
+            <form  class="form" id="form">
+                <div class="input-group"></div>
+                <div class="input-field" >
+                    <i class="fa-solid fa-user" ></i>
+                    <input type="text" id="firstname" placeholder="Enter the firstname" name="firstname"required>
+                </div>
+                <div class="input-field" >
+                    <i class="fa-solid fa-user" ></i>
+                    <input type="text" id="lastname" placeholder="Enter the lastname" name="lastname" required>
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope" ></i>
+                    <input type="email"  placeholder="Email" id="email" name="email" required>
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-key" ></i>
+                    <input type="password"  placeholder="Password" id="password" name="password" required>
+                </div>
+                <div class="input-field" >
+                    <i class="fa-solid fa-key" ></i>
+                    <input type="password" id="cpassword"  placeholder="Confrim Password" name="confrimpassword" required>
+                </div>
+                <div class="input-field">
+                     <i class="fa-solid fa-phone"  ></i>
+                    <input type="number"    required  name="phonenumber" id="phonenumber" placeholder="Enter the Phonenumber" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                >
+                </div>
+                <div class="input-field" >
+                    <i class="fa-solid fa-user" ></i>
+                    <input type="text" id="role" placeholder="Enter the role" name="role" required>
+                </div>
+               
+                <!-- <div class="input-field">
+                    <i class="fa-solid fa-phone"  ></i>
+                   <input type="number"    required  name="userid" id="userid" placeholder="" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+               >
+               </div> -->
+                <!-- <p>Lost Password <a href="#">Click Here</a></p> -->
+                
+                <div class="btn" >
+                    <button type="submit" id="submit"  onclick="generateUserId()"> signup</button>
+                    
+                 
+                </div>
+                
+            </form>
+
+        </div>
+    </div>
+
+</body>
+<script>
+    
+
+    const formel = document.getElementById('form');
+     formel.addEventListener('submit', event => {
+    event.preventDefault();
+    const formData = new FormData(formel);
+    const userdata = new URLSearchParams(formData);
+    fetch('https://64cd007abb31a268409a3d5f.mockapi.io/userdata', {
+        method: 'POST',
+        body: userdata
+    })
+    .then(res => res.json())
+    .then(userdata => console.log(userdata))
+    .catch(error => console.log(error));
+});
+function generateUserId() {
+  const randomNumbers = Array.from({ length: 4 }, () =>
+    Math.floor(Math.random() * 10)
+  ).join('');
+
+  return randomNumbers;
+}
+
+// Example usage
+const userId = generateUserId();
+console.log("Your user ID is:", userId);
+
+function storeEmail() {
+            const signupEmail = document.getElementById("email").value;
+
+            // Create a new user using the mock API
+            fetch('https://64cd007abb31a268409a3d5f.mockapi.io/userdata', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: signupEmail,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Email stored for signup: " + data.email);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+
+// You can continue with the rest of your code here, like handling user sign-up and storage of the generated user ID.
+// var btn=document.getElementById('submit');
+// btn.addEventListener('click',()=>{
+//     window.location.replace('./signin.html');
+// })
+
+</script>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Email and Password</title>
+    <style>
+             
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                <a class="nav-link" href="/admin.html">Admin</a>
+                <a class="nav-link" href="/signin.html">Sign In</a>
+                <a class="nav-link" href="/signup.html">Sign Up</a>
+              </div>
+            </div>
+          </div>
+    </nav>
+   
+
+
+        
+
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" placeholder="Enter User ID">
+    <br>
+    <label for="newEmail">New Email:</label>
+    <input type="email" id="newEmail" placeholder="Enter New Email">
+    <br>
+    <label for="newPassword">New Password:</label>
+    <input type="password" id="newPassword" placeholder="Enter New Password">
+    <br>
+    <button onclick="updateUser()">Update</button>
+
+<script>
+       async function updateUser() {
+    const userId = document.getElementById("userId").value;
+    const newEmail = document.getElementById("newEmail").value;
+    const newPassword = document.getElementById("newPassword").value;
+
+    if (!userId || (!newEmail && !newPassword)) {
+        alert("Please fill in the required fields.");
+        return;
+    }
+
+    const updatedData = {};
+
+    if (newEmail) {
+        updatedData.email = newEmail;
+    }
+
+    if (newPassword) {
+        updatedData.password = newPassword;
+    }
+
+    const response = await fetch(`https://64cd007abb31a268409a3d5f.mockapi.io/userdata/:${userId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedData)
+    });
+
+    if (response.ok) {
+        const updatedUserData = await response.json();
+        console.log("Email and password updated successfully:", updatedUserData);
+        alert("Email and password updated successfully.");
+    } else {
+        console.error("Error updating email and password. Status:", response.status);
+        alert("An error occurred while updating email and password.");
+    }
+} 
+
+
+</script> 
+</body>
+</html>
+<!-- <script> 
+//    let url = "https://64cd007abb31a268409a3d5f.mockapi.io/userdata/:2";
+//     let payload = {
+//         userid : 59,
+//         id:7,
+//         email: "bond@gmail.com",
+//         password : "bond"
+
+//     } 
+     
+//     let options={
+//         method : "PUT",
+//         body : JSON.stringify(payload)
+//     }
+    
+//     fetch (url,options)
+//     .then(response => console)
+
+//  

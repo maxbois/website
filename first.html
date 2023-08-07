@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+      
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname"><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname" ><br><br>
+            <button type="button" >signup </button>
+           
+          
+    </form>
+<script>
+    
+const formel= document.getElementById('form');
+formel.addEventListener('SignUp', function(e) {
+        e.preventDefault();
+        const prePayload = new FormData(form);
+        const payload = new URLSearchParams(prePayload)
+
+        console.log([...payload]);
+
+        fetch('https://64cd007abb31a268409a3d5f.mockapi.io/userdata',{
+            method : "POST",
+            body:JSON.stringify(form),
+        })
+        .then(res=> res.json())
+        .then(data=> console.log(data))
+        .then (error => console.log(error))
+}
+)
+
+</script>
+</body>
+</html>
